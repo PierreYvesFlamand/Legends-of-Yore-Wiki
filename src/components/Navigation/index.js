@@ -1,29 +1,79 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import './styles.css';
 
+const links = [
+    { to: '/', label: 'Home' },
+    { to: '/player', label: 'Player' },
+    { to: '/items', label: 'Items' },
+    { to: '/monsters', label: 'Monsters' },
+    { to: '/dungeons', label: 'Dungeons' },
+    { to: '/quests', label: 'Quests' },
+    { to: '/activities', label: 'Activities' },
+    { to: '/shops', label: 'Shops' },
+    { to: '/world_map', label: 'World map' },
+];
+
 export default function Navigation() {
-    const path = useLocation().pathname.substring(1);
+    const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    // Close the mobile menu whenever the page changes
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location.pathname, location.hash]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        document.addEventListener('keydown', onKeyDown);
+        document.body.classList.add('no-scroll');
+
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.body.classList.remove('no-scroll');
+        };
+    }, [isOpen]);
 
     return (
-        <nav className='navigation'>
-            <ul>
-                <li>
-                    <Link to='/' className={!path ? 'active' : ''}>
-                        Home
-                    </Link>
-                </li>
-                {['player', 'items', 'monsters', 'dungeons', 'quests', 'activities', 'shops', 'world map'].map((link, id) => {
-                    return (
-                        <li key={id}>
-                            <Link to={`/${link.split(' ').join('_')}`} className={path === link ? 'active' : ''}>
-                                {link.substring(0, 1).toUpperCase() + link.substring(1)}
-                            </Link>
-                        </li>
-                    );
-                })}
-            </ul>
-        </nav>
+        <header className={`navigation${isOpen ? ' open' : ''}`}>
+            <div className='nav-bar'>
+                <Link to='/' className='nav-brand'>
+                    <img src={process.env.PUBLIC_URL + '/data/warrior.png'} alt='' width='28' height='28' />
+                    <span>
+                        Legends of Yore <span className='nav-brand-wiki'>Wiki</span>
+                    </span>
+                </Link>
+
+                <button
+                    className='nav-toggle'
+                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                    aria-expanded={isOpen}
+                    aria-controls='nav-links'
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <span className='nav-toggle-bar' />
+                    <span className='nav-toggle-bar' />
+                    <span className='nav-toggle-bar' />
+                </button>
+
+                <nav id='nav-links' className='nav-links' aria-label='Main'>
+                    <ul>
+                        {links.map(({ to, label }) => (
+                            <li key={to}>
+                                <NavLink exact to={to} activeClassName='active'>
+                                    {label}
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+            <div className='nav-backdrop' onClick={() => setIsOpen(false)} />
+        </header>
     );
 }

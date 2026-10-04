@@ -24,4 +24,4 @@ You work on the React 17 front end of the Legends of Yore wiki (Create React App
 
 ## Verify
 
-Run `npm run build` to check the app compiles (it fails on ESLint errors in CI mode). Do not commit the resulting `build/` changes unless asked — tell the user it was regenerated.
+Check the app compiles with `CI=true npm run build:legacy` (plain `npm run build` fails on Node ≥ 17, see `CLAUDE.md`; `CI=true` makes ESLint warnings fail the build). Do not commit the resulting `build/` changes unless asked — tell the user it was regenerated.

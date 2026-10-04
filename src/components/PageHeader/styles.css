@@ -33,9 +33,37 @@
     margin: 0.3em 0;
 }
 
+@media (max-width: 800px) {
+    .pageHeader {
+        grid-template-columns: 1fr;
+        grid-gap: 0.5rem;
+        padding: 0;
+    }
+
+    .quickLinks {
+        width: auto;
+        margin: 0 0 1rem;
+        padding: 0.3em 1em;
+        grid-template-columns: 1fr;
+    }
+
+    .quickLinks ol {
+        margin: 0 0 0.5em;
+        column-width: 150px;
+        column-gap: 1em;
+    }
+
+    .quickLinks li {
+        margin: 0;
+        padding: 0.15em 0;
+        break-inside: avoid;
+    }
+}
+
 .number {
     display: inline-block;
-    width: 1em;
+    width: 1.5em;
+    white-space: nowrap;
     text-align: right;
     margin-right: 0.35em;
 }

@@ -10,6 +10,15 @@ https://pierreyvesflamand.github.io/Legends-of-Yore-Wiki/build
 - `npm run build` — production build into `build/` (this folder **is committed**; it is what GitHub Pages serves)
 - `npm test` — CRA test runner (there are currently no tests)
 
+### Node version workaround
+
+`react-scripts` 4 does not run on Node ≥ 17 (Node 24 fails with `ERR_PACKAGE_PATH_NOT_EXPORTED` in `postcss-safe-parser`). Until it is upgraded to `react-scripts` 5, use the `:legacy` scripts, which run react-scripts through a temporary Node 16 via npx:
+
+- `npm run build:legacy` — production build into `build/`
+- `npm run start:legacy` — dev server
+
+`npm install` works fine on the current Node. Before committing, build with `CI=true npm run build:legacy` (Git Bash) so ESLint warnings fail the build.
+
 ## Layout
 
 - `src/index.js` — entry; sets `global.githubUrl` (base URL used to build in-wiki anchor links) and wraps the app in `DataContextProvider` + `HashRouter`.

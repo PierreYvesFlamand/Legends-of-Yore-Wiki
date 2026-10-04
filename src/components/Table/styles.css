@@ -1,7 +1,32 @@
+.table-wrapper {
+    max-width: 100%;
+    margin: 2rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 7px;
+}
+
 .table {
     border-collapse: collapse;
     text-align: center;
-    margin: 2rem 0;
+}
+
+@media (max-width: 600px) {
+    .table-wrapper {
+        margin: 1.25rem 0;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.3em 0.4em;
+    }
 }
 
 .table tr {

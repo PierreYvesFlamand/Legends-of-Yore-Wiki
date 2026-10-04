@@ -9,6 +9,23 @@
     align-self: center;
 }
 
+@media (max-width: 600px) {
+    .levelCalc {
+        grid-template-columns: max-content 80px;
+        row-gap: 0.4em;
+    }
+
+    .levelCalc label {
+        text-align: left;
+    }
+
+    .levelCalc p.levelCalc-result {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        margin: 0.5em 0 0;
+    }
+}
+
 .levelCalc p {
     grid-column: 3;
     grid-row: 1 / 3;

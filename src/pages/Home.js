@@ -25,6 +25,7 @@ export default function Home() {
                     <p className='bold underline'>Already Done :</p>
                     <ul className='no-list-style'>
                         {[
+                            'New top navigation + mobile friendly layout',
                             'Player section',
                             'Added Shops',
                             'Added activities (Repairing, Crafting, TMaps, Digging, Fishing, Finding)',
@@ -38,19 +39,6 @@ export default function Home() {
                             <li key={id}>✅ {txt}</li>
                         ))}
                     </ul>
-                    <p className='bold underline'>Planned :</p>
-                    <ul className='no-list-style'>
-                        {['Guide section', 'New top navigation + mobile friendly', 'More Mobile friendly'].map((txt, id) => (
-                            <li key={id}>⏩ {txt}</li>
-                        ))}
-                    </ul>
-                    <p className='bold underline'>Known issues :</p>
-                    <ul className='no-list-style'>
-                        {['Firefox table scroll'].map((txt, id) => (
-                            <li key={id}>❗ {txt}</li>
-                        ))}
-                    </ul>
-                    <br />
                     <br />
                 </div>
             </section>

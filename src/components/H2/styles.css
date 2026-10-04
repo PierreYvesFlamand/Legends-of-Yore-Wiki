@@ -5,6 +5,12 @@
     position: relative;
 }
 
+@media (max-width: 600px) {
+    .header-2 {
+        font-size: 1.6rem;
+    }
+}
+
 .header-2::after {
     content: '';
     position: absolute;
