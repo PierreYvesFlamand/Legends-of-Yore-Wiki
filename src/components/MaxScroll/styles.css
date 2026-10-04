@@ -1,0 +1,33 @@
+.maxScroll ul {
+    list-style: none;
+    padding: 0.2em 0;
+    margin: 0;
+    width: 100%;
+}
+
+.maxScroll li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Keep in sync with VISIBLE in index.js */
+.maxScroll.is-collapsed li:nth-child(n + 4) {
+    display: none;
+}
+
+.maxScroll-toggle {
+    margin: 0.1em 0 0.2em;
+    padding: 0.05em 0.6em;
+    font: inherit;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--link-clr-1);
+    background: none;
+    border: 1px solid currentColor;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.maxScroll-toggle:hover {
+    color: var(--link-clr-2);
+}

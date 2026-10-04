@@ -21,8 +21,85 @@ html {
     --clr-yellow: #ffff4a;
     --clr-border: rgb(63, 127, 148);
 
+    /* Black outline around the yellow nav text so it stays readable on light blue */
+    --text-stroke: -1px -1px 0 rgba(0, 0, 0, 0.8), 1px -1px 0 rgba(0, 0, 0, 0.8), -1px 1px 0 rgba(0, 0, 0, 0.8),
+        1px 1px 0 rgba(0, 0, 0, 0.8);
+
+    /* Theme tokens (light) */
+    --clr-text: #000;
+    /* Layer drawn over the background image (darkens it in dark mode) */
+    --bg-overlay: linear-gradient(transparent, transparent);
+    --clr-content-bg: rgba(var(--clr-ll-blue-o), 0.9);
+    --clr-nav-bg: var(--clr-l-blue);
+    --clr-footer-bg: rgba(var(--clr-l-blue-o), 0.6);
+    --clr-rule: #000;
+    --clr-panel-bg: var(--clr-ll-blue-table);
+    --clr-panel-border: #000;
+
+    --clr-table-head: var(--clr-l-blue);
+    --clr-table-cell: var(--clr-ll-blue-table);
+    --clr-table-cell-alt: #a4d7eb;
+    --clr-table-cell-hover: #c9eaf6;
+    --clr-target: #f6f39a;
+
     --link-clr-1: #631bcf;
-    --link-clr-2: #a471f1;
+    --link-clr-2: #3d0f8a;
+    --link-clr-visited: #7d1ea6;
+    --clr-focus: #631bcf;
+
+    color-scheme: light;
+}
+
+/* Theme tokens (dark): system preference unless the reader picked light, or an explicit dark choice */
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+        --clr-text: #e6eef3;
+        --bg-overlay: linear-gradient(rgba(8, 18, 28, 0.78), rgba(8, 18, 28, 0.78));
+        --clr-content-bg: rgba(18, 34, 46, 0.93);
+        --clr-nav-bg: #1f4a5c;
+        --clr-footer-bg: rgba(18, 34, 46, 0.85);
+        --clr-rule: rgba(255, 255, 255, 0.55);
+        --clr-panel-bg: #1c3646;
+        --clr-panel-border: var(--clr-border);
+
+        --clr-table-head: #2b5c72;
+        --clr-table-cell: #1c3646;
+        --clr-table-cell-alt: #213f50;
+        --clr-table-cell-hover: #2a5164;
+        --clr-target: #4f4b17;
+
+        --link-clr-1: #c3a6ff;
+        --link-clr-2: #e4d6ff;
+        --link-clr-visited: #dba8f2;
+        --clr-focus: var(--clr-yellow);
+
+        color-scheme: dark;
+    }
+}
+
+:root[data-theme='dark'] {
+    --clr-text: #e6eef3;
+    --bg-overlay: linear-gradient(rgba(8, 18, 28, 0.78), rgba(8, 18, 28, 0.78));
+    --clr-content-bg: rgba(18, 34, 46, 0.93);
+    --clr-nav-bg: #1f4a5c;
+    --clr-footer-bg: rgba(18, 34, 46, 0.85);
+    --clr-rule: rgba(255, 255, 255, 0.55);
+    --clr-panel-bg: #1c3646;
+    --clr-panel-border: var(--clr-border);
+
+    --clr-table-head: #2b5c72;
+    --clr-table-cell: #1c3646;
+    --clr-table-cell-alt: #213f50;
+    --clr-table-cell-hover: #2a5164;
+    --clr-target: #4f4b17;
+
+    --link-clr-1: #c3a6ff;
+    --link-clr-2: #e4d6ff;
+    --link-clr-visited: #dba8f2;
+    --clr-focus: var(--clr-yellow);
+
+    color-scheme: dark;
 }
 
 ::-webkit-scrollbar-track {
@@ -35,7 +112,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--clr-yellow);
-    border: 0;
+    border: 1px solid rgba(0, 0, 0, 0.35);
     border-radius: 50px;
 }
 
@@ -46,6 +123,9 @@ body {
     overflow: overlay;
     margin: 0;
     overflow-wrap: break-word;
+    color: var(--clr-text);
+    /* --bg-image is set in src/index.js (the image lives in public/) */
+    background: var(--bg-overlay) fixed, var(--bg-image) repeat-x fixed left bottom var(--clr-l-blue);
 }
 
 body.no-scroll {
@@ -62,17 +142,41 @@ body #root {
 }
 
 a,
-a:visited,
 a:active {
     color: var(--link-clr-1);
     text-decoration: none;
 }
 
-a:hover,
-a:focus {
+a:visited {
+    color: var(--link-clr-visited);
+    text-decoration: none;
+}
+
+a:hover {
     color: var(--link-clr-2);
     text-decoration: underline;
+}
+
+:focus {
     outline: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--clr-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .anchor-Zone {
@@ -93,13 +197,14 @@ section > div {
     max-width: var(--w-max);
     margin: calc(var(--nav-h) + 1.5rem) auto 2rem;
     padding: 1em 1.5em;
-    background-color: rgba(var(--clr-ll-blue-o), 0.9);
+    background-color: var(--clr-content-bg);
     border-radius: 1.2em;
 }
 
 .sprite {
     width: 32px;
     height: 32px;
+    image-rendering: pixelated;
 }
 
 h4 {
@@ -129,4 +234,10 @@ h4 {
     section > div {
         padding: 0.2em 0;
     }
+}
+
+/* Heading reached through a link (see src/utils/useHashScroll.js) */
+h4.is-target {
+    background-color: var(--clr-target);
+    border-radius: 0.3em;
 }

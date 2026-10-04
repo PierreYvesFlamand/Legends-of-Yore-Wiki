@@ -10,7 +10,7 @@ export default function Footer() {
                 <a target='_blank' rel='noreferrer' href='https://www.legendsofyore.com/' title='Legends of Yore website'>
                     Legends of Yore
                 </a>{' '}
-                made by Polfy#6924
+                made by @polfy on Discord
             </p>
         </footer>
     );

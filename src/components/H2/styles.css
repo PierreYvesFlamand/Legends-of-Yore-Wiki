@@ -2,20 +2,12 @@
     font-size: 2rem;
     letter-spacing: 0.7px;
     margin: 0.3em 0 0.5em 0;
-    position: relative;
+    padding-bottom: 0.1em;
+    border-bottom: 1px solid var(--clr-rule);
 }
 
 @media (max-width: 600px) {
     .header-2 {
         font-size: 1.6rem;
     }
-}
-
-.header-2::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    top: 100%;
-    left: 0;
-    border-bottom: 1px solid black;
 }

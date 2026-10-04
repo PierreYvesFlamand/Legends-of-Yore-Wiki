@@ -1,6 +1,6 @@
 .footer {
     width: 100%;
-    background-color: rgba(var(--clr-l-blue-o), 0.6);
+    background-color: var(--clr-footer-bg);
     text-align: center;
     font-size: 0.9rem;
     font-style: italic;

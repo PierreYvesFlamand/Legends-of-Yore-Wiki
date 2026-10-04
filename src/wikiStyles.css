@@ -3,7 +3,7 @@
 }
 
 .underline {
-    text-transform: underline;
+    text-decoration: underline;
 }
 
 .no-list-style {
@@ -16,11 +16,11 @@
     border: none;
     font-size: inherit;
     font-family: inherit;
-    outline: none;
+    color: inherit;
 
     padding: 0.4em;
-    background: var(--clr-l-blue);
-    border: 1px solid black;
+    background: var(--clr-table-head);
+    border: 1px solid var(--clr-panel-border);
     font-weight: bold;
     margin: 0.2em 0.5em;
     cursor: pointer;

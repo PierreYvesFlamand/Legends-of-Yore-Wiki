@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import H2 from '../components/H2';
 
+import './Map.css';
+
 export default function Map() {
-    const [mapHeight, setMapHeight] = useState(window.innerHeight * 0.8);
+    // Here the hash is not an anchor: it is passed to the map (e.g. #Aria_Island or #i=...&x=...&y=...)
     const hash = useLocation().hash;
+    const mapUrl = `${process.env.PUBLIC_URL}/map/index.html${hash}`;
 
     useEffect(() => {
-        window.addEventListener('resize', () => {
-            setMapHeight(window.innerHeight * 0.8);
-        });
-
         window.scrollTo(0, 0);
     }, []);
 
@@ -22,16 +20,12 @@ export default function Map() {
 
             <section>
                 <div>
-                    <object
-                        type='text/html'
-                        data={process.env.PUBLIC_URL + '/map' + hash}
-                        width='100%'
-                        height={`${mapHeight}px`}
-                        style={{ overflow: 'auto', border: '2px solid lightblue' }}
-                        aria-label='If you see this message contact me on Dicord : Polfy#6924'
-                        inner-text='If you see this message contact me on Dicord : Polfy#6924'
-                        aria-labelledby='If you see this message contact me on Dicord : Polfy#6924'
-                    ></object>
+                    <iframe className='world-map' src={mapUrl} title='Legends of Yore interactive world map' />
+                    <p className='world-map-links'>
+                        <a href={mapUrl} target='_blank' rel='noreferrer'>
+                            Open the map in full screen
+                        </a>
+                    </p>
                 </div>
             </section>
         </main>

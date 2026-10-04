@@ -9,7 +9,7 @@ export default function Table({ header, rows, ...restProps }) {
                 <thead>
                     <tr>
                         {header.map((head, id) => (
-                            <th key={id}>{typeof head === 'string' ? head.toUpperCase() : head}</th>
+                            <th key={id}>{head}</th>
                         ))}
                     </tr>
                 </thead>

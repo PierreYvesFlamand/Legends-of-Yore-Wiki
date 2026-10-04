@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MaxScroll from '../MaxScroll';
 
 export default function DungeonRows(dungeons, customData, id) {
     return dungeons.reduce((acc, floor, idx) => {
@@ -23,7 +24,7 @@ export default function DungeonRows(dungeons, customData, id) {
                 data: [
                     `F${idx + 1}`,
                     `${floor.minMonsters} / ${floor.maxMonsters}`,
-                    <div className='maxScroll'>
+                    <MaxScroll>
                         <ul>
                             {floor.monsterChance
                                 ? floor.monsterChance.map((monster) => {
@@ -42,9 +43,9 @@ export default function DungeonRows(dungeons, customData, id) {
                                   })
                                 : null}
                         </ul>
-                    </div>,
+                    </MaxScroll>,
                     floor.chest ? floor.chests : '–',
-                    <div className='maxScroll'>
+                    <MaxScroll>
                         <ul>
                             {floor.chest && floor.chest.itemChance
                                 ? floor.chest.itemChance.map((item) => {
@@ -63,7 +64,7 @@ export default function DungeonRows(dungeons, customData, id) {
                                   })
                                 : '–'}
                         </ul>
-                    </div>,
+                    </MaxScroll>,
                     floor.legend ? <Link to={`/monsters#${floor.legend.split(' ').join('_')}`}>{floor.legend}</Link> : '–',
                 ],
             },

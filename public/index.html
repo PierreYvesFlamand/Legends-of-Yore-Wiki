@@ -7,6 +7,14 @@
         <title>Legends of Yore Wiki</title>
         <meta name="description" content="Fan made Legends of Yore wiki" />
 
+        <!-- Apply the saved light/dark choice before first paint (see src/components/ThemeToggle) -->
+        <script>
+            try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light' || theme === 'dark') document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        </script>
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-QH7NT02S4N"></script>
         <script>

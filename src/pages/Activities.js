@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+import useHashScroll from '../utils/useHashScroll';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
 import PageHeader from '../components/PageHeader';
@@ -13,15 +14,7 @@ import Finding from '../components/Finding.js';
 import TMaps from '../components/TMaps.js';
 
 export default function Activities() {
-    const hash = useLocation().hash;
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash) && hash !== '#Dungeons') {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    });
+    useHashScroll();
 
     return (
         <main className='content'>

@@ -5,6 +5,7 @@ import Table from './Table';
 import Sprite from './Sprite';
 
 import ncpLocation from '../utils/npcLocation';
+import MaxScroll from './MaxScroll';
 
 const craftingData = [
     {
@@ -186,7 +187,7 @@ export default function Crafting() {
                             <Sprite tile={craft.item.tile} spriteSheet='tiles' className='sprite' title={craft.item.name} alt={craft.item.name} />,
                             <Link to={`/items#${craft.item.name.split(' ').join('_')}`}>{craft.item.name}</Link>,
 
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {craft.material.map((mat, id) => (
                                         <li key={id}>
@@ -199,9 +200,9 @@ export default function Crafting() {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>,
+                            </MaxScroll>,
 
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {craft.npc.map((npc, id) => (
                                         <li key={id}>
@@ -211,7 +212,7 @@ export default function Crafting() {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>,
+                            </MaxScroll>,
                         ],
                     },
                 ];

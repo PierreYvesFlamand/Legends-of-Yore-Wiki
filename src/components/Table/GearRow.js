@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Sprite from '../Sprite';
+import MaxScroll from '../MaxScroll';
 
 const sets = {
     1: 'Crusader set',
@@ -38,7 +39,7 @@ export default function GearRow(items) {
                         <ItemModifier modifiers={item.modifier} />,
                         ~~(item.cost * 0.05) + 1,
                         item.dropedBy.length ? (
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {item.dropedBy.map((dropedBy) => {
                                         return (
@@ -54,12 +55,12 @@ export default function GearRow(items) {
                                         );
                                     })}
                                 </ul>
-                            </div>
+                            </MaxScroll>
                         ) : (
                             '–'
                         ),
                         item.foundIn.length ? (
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {item.foundIn.map((foundIn, id) => {
                                         if (foundIn === 'Shops') {
@@ -124,7 +125,7 @@ export default function GearRow(items) {
                                         }
                                     })}
                                 </ul>
-                            </div>
+                            </MaxScroll>
                         ) : (
                             '–'
                         ),
@@ -163,9 +164,9 @@ function ItemModifier({ modifiers }) {
 
             case 'set':
                 return (
-                    <a key={id} className='gear-info' href={`#${sets[modif.value].split(' ').join('_')}`}>
+                    <Link key={id} className='gear-info' to={`/items#${sets[modif.value].split(' ').join('_')}`}>
                         {sets[modif.value]}
-                    </a>
+                    </Link>
                 );
 
             default:

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useLocation } from 'react-router-dom';
-
+import useHashScroll from '../utils/useHashScroll';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
 import PageHeader from '../components/PageHeader';
@@ -11,15 +10,7 @@ import MagicShops from '../components/MagicShops';
 import InnShops from '../components/InnShops';
 
 export default function Activities() {
-    const hash = useLocation().hash;
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash)) {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    });
+    useHashScroll();
 
     return (
         <main className='content'>

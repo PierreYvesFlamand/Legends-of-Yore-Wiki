@@ -15,7 +15,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    background-color: var(--clr-l-blue);
+    background-color: var(--clr-nav-bg);
     border-bottom: 2px solid var(--clr-border);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
@@ -32,7 +32,7 @@
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--clr-yellow);
-    text-shadow: 1px 1px 1px black;
+    text-shadow: var(--text-stroke);
     white-space: nowrap;
 }
 
@@ -52,6 +52,10 @@
 
 /* Links */
 
+.nav-links {
+    margin-left: auto;
+}
+
 .nav-links ul {
     list-style: none;
     margin: 0;
@@ -69,7 +73,7 @@
     padding: 0.4em 0.6em;
     font-size: 1.05rem;
     color: var(--clr-yellow);
-    text-shadow: 1px 1px 1px black;
+    text-shadow: var(--text-stroke);
     text-decoration: none;
     white-space: nowrap;
     border-radius: 0.4em;
@@ -85,7 +89,7 @@
     height: 2px;
     background-color: var(--clr-yellow);
     border-radius: 0.2em;
-    box-shadow: 1px 1px 1px black;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
     transition: all 150ms ease-in;
 }
 
@@ -104,6 +108,62 @@
     width: calc(100% - 1.2em);
 }
 
+/* Search, theme and burger buttons */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    flex-shrink: 0;
+}
+
+.nav-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: var(--clr-yellow);
+    background: none;
+    border: 0;
+    border-radius: 0.4em;
+    cursor: pointer;
+    transition: background-color 150ms ease-in;
+}
+
+/* Same black outline as the nav text (on the icon only, not the hover background) */
+.nav-icon-btn svg {
+    filter: drop-shadow(1px 0 0 rgba(0, 0, 0, 0.8)) drop-shadow(-1px 0 0 rgba(0, 0, 0, 0.8)) drop-shadow(0 1px 0 rgba(0, 0, 0, 0.8))
+        drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.8));
+}
+
+.nav-icon-btn:hover,
+.nav-icon-btn[aria-expanded='true'] {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.nav-icon-btn:focus-visible {
+    outline: 2px solid var(--clr-yellow);
+    outline-offset: 0;
+}
+
+/* Search panel, drops under the bar */
+
+.nav-search {
+    position: absolute;
+    z-index: 3;
+    top: 100%;
+    right: 1rem;
+    width: min(30rem, calc(100% - 2rem));
+    padding: 0.6rem;
+    background-color: var(--clr-nav-bg);
+    border: 2px solid var(--clr-border);
+    border-top: 0;
+    border-radius: 0 0 0.8em 0.8em;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 /* Burger button (hidden on desktop) */
 
 .nav-toggle {
@@ -111,7 +171,7 @@
     width: 44px;
     height: 44px;
     padding: 10px;
-    margin-right: -10px;
+    margin-right: -6px;
     background: none;
     border: 0;
     cursor: pointer;
@@ -130,7 +190,7 @@
     width: 100%;
     background-color: var(--clr-yellow);
     border-radius: 2px;
-    box-shadow: 1px 1px 1px black;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8);
     transition: transform 200ms ease-in, opacity 200ms ease-in;
 }
 
@@ -152,9 +212,22 @@
 
 /* Mobile / tablet: collapsible menu */
 
-@media (max-width: 960px) {
+/* Below this width the links + search/theme buttons no longer fit on one line */
+@media (max-width: 1180px) {
     .nav-toggle {
         display: flex;
+    }
+
+    .nav-actions {
+        margin-left: auto;
+    }
+
+    .nav-search {
+        right: 0;
+        width: 100%;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
     }
 
     .nav-links {
@@ -164,7 +237,7 @@
         right: 0;
         max-height: calc(100vh - var(--nav-h));
         overflow-y: auto;
-        background-color: var(--clr-l-blue);
+        background-color: var(--clr-nav-bg);
         border-bottom: 2px solid var(--clr-border);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 

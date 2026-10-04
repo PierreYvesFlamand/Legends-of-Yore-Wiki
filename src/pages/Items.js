@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
+import useHashScroll from '../utils/useHashScroll';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
 import PageHeader from '../components/PageHeader';
@@ -139,15 +140,7 @@ export default function Items() {
         items,
         skillsSpell: { spell },
     } = useContext(DataContext);
-    const hash = useLocation().hash;
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash)) {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    });
+    useHashScroll();
 
     return (
         <main className='content'>

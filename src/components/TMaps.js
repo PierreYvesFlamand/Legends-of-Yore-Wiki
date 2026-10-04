@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Table from './Table';
+import MaxScroll from './MaxScroll';
 
 const tMaps = [
     {
@@ -119,7 +120,7 @@ export default function Crafting() {
                             tMap.level,
                             tMap.cost,
                             tMap.desc,
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {tMap.reward.map((item, id) => {
                                         return (
@@ -130,7 +131,7 @@ export default function Crafting() {
                                         );
                                     })}
                                 </ul>
-                            </div>,
+                            </MaxScroll>,
                             <Link to={`/world_map#i=${tMap.map}&x=${tMap.x}&y=${tMap.y}`}>Click to see on map</Link>,
                         ],
                     },

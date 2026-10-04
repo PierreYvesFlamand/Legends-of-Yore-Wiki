@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Sprite from '../Sprite';
+import MaxScroll from '../MaxScroll';
 
 export default function NonGearRow(items, type) {
     return items
@@ -23,7 +24,7 @@ export default function NonGearRow(items, type) {
                                   <Link to={`/items#${item.name.split(' ').join('_')}`}>{item.name}</Link>,
                                   item.action ? (
                                       Array.isArray(item.action) ? (
-                                          <div className='maxScroll'>
+                                          <MaxScroll>
                                               <ul>
                                                   {item.action.map((action, id) => (
                                                       <li key={id}>
@@ -31,7 +32,7 @@ export default function NonGearRow(items, type) {
                                                       </li>
                                                   ))}
                                               </ul>
-                                          </div>
+                                          </MaxScroll>
                                       ) : (
                                           `+${item.action.delta} ${item.action.attribute}`
                                       )
@@ -40,7 +41,7 @@ export default function NonGearRow(items, type) {
                                   ),
                                   ~~(item.cost * 0.05) + 1,
                                   item.dropedBy.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.dropedBy.map((dropedBy) => {
                                                   return (
@@ -56,12 +57,12 @@ export default function NonGearRow(items, type) {
                                                   );
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),
                                   item.foundIn.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.foundIn.map((foundIn, id) => {
                                                   if (foundIn === 'Shops') {
@@ -128,7 +129,7 @@ export default function NonGearRow(items, type) {
                                                   }
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),
@@ -140,7 +141,7 @@ export default function NonGearRow(items, type) {
                                   item.level,
                                   item.action ? (
                                       Array.isArray(item.action) ? (
-                                          <div className='maxScroll'>
+                                          <MaxScroll>
                                               <ul>
                                                   {item.action.map((action, id) => (
                                                       <li key={id}>
@@ -148,7 +149,7 @@ export default function NonGearRow(items, type) {
                                                       </li>
                                                   ))}
                                               </ul>
-                                          </div>
+                                          </MaxScroll>
                                       ) : (
                                           `+${item.action.delta} ${item.action.attribute}`
                                       )
@@ -157,7 +158,7 @@ export default function NonGearRow(items, type) {
                                   ),
                                   ~~(item.cost * 0.05) + 1,
                                   item.dropedBy.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.dropedBy.map((dropedBy) => {
                                                   return (
@@ -173,12 +174,12 @@ export default function NonGearRow(items, type) {
                                                   );
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),
                                   item.foundIn.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.foundIn.map((foundIn, id) => {
                                                   if (foundIn === 'Shops') {
@@ -245,7 +246,7 @@ export default function NonGearRow(items, type) {
                                                   }
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),
@@ -255,7 +256,7 @@ export default function NonGearRow(items, type) {
                                   <Link to={`/items#${item.name.split(' ').join('_')}`}>{item.name}</Link>,
                                   ~~(item.cost * 0.05) + 1,
                                   item.dropedBy.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.dropedBy.map((dropedBy) => {
                                                   return (
@@ -271,12 +272,12 @@ export default function NonGearRow(items, type) {
                                                   );
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),
                                   item.foundIn.length ? (
-                                      <div className='maxScroll'>
+                                      <MaxScroll>
                                           <ul>
                                               {item.foundIn.map((foundIn, id) => {
                                                   if (foundIn === 'Shops') {
@@ -343,7 +344,7 @@ export default function NonGearRow(items, type) {
                                                   }
                                               })}
                                           </ul>
-                                      </div>
+                                      </MaxScroll>
                                   ) : (
                                       '–'
                                   ),

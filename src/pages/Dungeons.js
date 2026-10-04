@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
+import useHashScroll from '../utils/useHashScroll';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
 import PageHeader from '../components/PageHeader';
@@ -11,19 +12,12 @@ import HiddenCoveMonsters from '../components/HiddenCoveMonsters';
 
 import { DataContext } from '../context/dataContext';
 import levelFilter from '../utils/levelFilter';
+import MaxScroll from '../components/MaxScroll';
 
 export default function Dungeons() {
     const levels = useContext(DataContext).levels;
     const customData = useContext(DataContext).customData;
-    const hash = useLocation().hash;
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash) && hash !== '#Dungeons') {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    });
+    useHashScroll();
 
     return (
         <main className='content'>
@@ -71,7 +65,7 @@ export default function Dungeons() {
                                 id: 'Passageway',
                                 data: [
                                     'F1',
-                                    <div className='maxScroll'>
+                                    <MaxScroll>
                                         <ul>
                                             <li>
                                                 <Link to={`/monsters#Blob`}>Blob</Link>{' '}
@@ -80,7 +74,7 @@ export default function Dungeons() {
                                                 <Link to={`/monsters#Faca`}>Faca</Link>{' '}
                                             </li>
                                         </ul>
-                                    </div>,
+                                    </MaxScroll>,
                                     <Link to={`/monsters#Dark_Lord`}>Dark Lord</Link>,
                                 ],
                             },

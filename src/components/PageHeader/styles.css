@@ -6,19 +6,15 @@
 }
 
 .quickLinks {
-    background-color: var(--clr-ll-blue-table);
+    background-color: var(--clr-panel-bg);
     padding: 0.3em 1.5em;
     width: max-content;
     font-size: 1rem;
-    border: 1px solid black;
+    border: 1px solid var(--clr-panel-border);
     margin-right: 1.5em;
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
-    column-gap: 1.2em;
 }
 
 .quickLinks p {
-    grid-column: 1 / -1;
     text-align: center;
     margin: 0.5em 0;
     text-decoration: underline;
@@ -29,8 +25,19 @@
     padding: 0;
 }
 
+.quickLinks ol.two-columns {
+    columns: 2;
+    column-gap: 1.2em;
+}
+
 .quickLinks li {
     margin: 0.3em 0;
+    break-inside: avoid;
+}
+
+/* Keep the first item flush with the column top */
+.quickLinks ol.two-columns li:first-child {
+    margin-top: 0;
 }
 
 @media (max-width: 800px) {
@@ -44,11 +51,12 @@
         width: auto;
         margin: 0 0 1rem;
         padding: 0.3em 1em;
-        grid-template-columns: 1fr;
     }
 
-    .quickLinks ol {
+    .quickLinks ol,
+    .quickLinks ol.two-columns {
         margin: 0 0 0.5em;
+        columns: auto;
         column-width: 150px;
         column-gap: 1em;
     }
@@ -56,7 +64,6 @@
     .quickLinks li {
         margin: 0;
         padding: 0.15em 0;
-        break-inside: avoid;
     }
 }
 

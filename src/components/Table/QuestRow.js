@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ncpLocation from '../../utils/npcLocation';
+import MaxScroll from '../MaxScroll';
 
 export default function QuestRow(quests) {
     return quests.reduce((acc, quest) => {
@@ -81,7 +82,7 @@ export default function QuestRow(quests) {
                     quest.title,
                     quest.summary,
                     Array.isArray(quest.questItem) ? (
-                        <div className='maxScroll'>
+                        <MaxScroll>
                             <ul>
                                 {quest.questItem.map((item, id) => (
                                     <li key={id}>
@@ -89,7 +90,7 @@ export default function QuestRow(quests) {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </MaxScroll>
                     ) : quest.questItem ? (
                         <Link to={`/items#${quest.questItem.split(' ').join('_').replace("'", '_')}`}>{quest.questItem}</Link>
                     ) : (

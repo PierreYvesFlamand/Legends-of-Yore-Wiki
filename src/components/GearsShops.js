@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Table from './Table';
 import Sprite from './Sprite';
+import MaxScroll from './MaxScroll';
 
 const shops = [
     {
@@ -513,13 +514,13 @@ export default function GearsShops() {
                             <Sprite tile={item.tile} spriteSheet='tiles' className='sprite' title={item.name} alt={item.name} />,
                             <Link to={`/items#${item.name.split(' ').join('_')}`}>{item.name}</Link>,
                             item.cost,
-                            <div className='maxScroll'>
+                            <MaxScroll>
                                 <ul>
                                     {item.towns.map((town, id) => (
                                         <li key={id}>{town}</li>
                                     ))}
                                 </ul>
-                            </div>,
+                            </MaxScroll>,
                             item.requirement ? (
                                 <>
                                     Complete <Link to={`/quests#${item.requirement.split(' ').join('_')}`}>{item.requirement}</Link>

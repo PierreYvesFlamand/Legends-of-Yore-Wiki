@@ -5,7 +5,7 @@ tools: Read, Edit, Write, Grep, Glob, Bash
 model: sonnet
 ---
 
-You maintain the standalone world map of the Legends of Yore wiki. It is plain JavaScript (Leaflet + jQuery), **not** React, and is embedded in the React page `src/pages/Map.js` through an `<object>` tag.
+You maintain the standalone world map of the Legends of Yore wiki. It is plain JavaScript (Leaflet + jQuery), **not** React, and is embedded in the React page `src/pages/Map.js` through an `<iframe>` (the wiki route hash, e.g. `#Aria_Island`, is passed to the map).
 
 ## Files
 

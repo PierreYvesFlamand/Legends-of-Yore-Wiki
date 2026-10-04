@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import useHashScroll from '../utils/useHashScroll';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
 import PageHeader from '../components/PageHeader';
@@ -10,6 +11,7 @@ import Sprite from '../components/Sprite';
 import LevelCalc from '../components/LevelCalc';
 
 import { DataContext } from '../context/dataContext';
+import MaxScroll from '../components/MaxScroll';
 
 const pets = [
     {
@@ -197,17 +199,9 @@ const wizSprite = (
 export default function Dungeons() {
     const { war_skills, arch_skills, spell } =
         useContext(DataContext).skillsSpell;
-    const hash = useLocation().hash;
+    useHashScroll();
 
     const [statLevel, setStatLevel] = useState(61);
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash)) {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    }, [hash]);
 
     return (
         <main className='content'>
@@ -883,15 +877,15 @@ export default function Dungeons() {
                                             pet.defGain * pet.maxLevel,
                                         pet.baseCharge +
                                             pet.chargeGain * pet.maxLevel,
-                                        <div className='maxScroll'>
+                                        <MaxScroll>
                                             <ul>
                                                 {pet.names.map((name, id) => (
                                                     <li key={id}>{name}</li>
                                                 ))}
                                             </ul>
-                                        </div>,
+                                        </MaxScroll>,
                                         pet.abilities.length ? (
-                                            <div className='maxScroll'>
+                                            <MaxScroll>
                                                 <ul>
                                                     {pet.abilities.map(
                                                         (abi, id) => (
@@ -902,7 +896,7 @@ export default function Dungeons() {
                                                         )
                                                     )}
                                                 </ul>
-                                            </div>
+                                            </MaxScroll>
                                         ) : (
                                             '–'
                                         ),

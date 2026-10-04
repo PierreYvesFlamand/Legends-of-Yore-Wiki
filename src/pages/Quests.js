@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { DataContext } from '../context/dataContext';
-import { Link, useLocation } from 'react-router-dom';
+import useHashScroll from '../utils/useHashScroll';
+import { Link } from 'react-router-dom';
 
 import H2 from '../components/H2';
 import H3 from '../components/H3';
@@ -13,15 +14,7 @@ import ncpLocation from '../utils/npcLocation';
 
 export default function Monsters() {
     const { quests } = useContext(DataContext);
-    const hash = useLocation().hash;
-
-    useEffect(() => {
-        if (hash && document.querySelector(hash)) {
-            document.querySelector(hash).scrollIntoView();
-        } else {
-            window.scrollTo(0, 0);
-        }
-    });
+    useHashScroll();
 
     return (
         <main className='content'>

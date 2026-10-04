@@ -10,4 +10,5 @@ Add a new game entry to the Legends of Yore wiki: $ARGUMENTS
 2. Delegate the data change to the `game-data-editor` subagent with all the facts, including cross-references to update.
 3. If the entry has a location on the world map (monster, NPC, dungeon) and the user gave coordinates/island, delegate the marker to the `map-editor` subagent.
 4. Run the `data-auditor` subagent and report only issues related to the new entry (mention the count of pre-existing issues separately).
-5. Summarise the changed files. Do not run `npm run build` or commit unless asked.
+5. The global search (`src/utils/searchIndex.js`) picks up new entries from the JSON automatically; only a new data category/key or page section needs a change there. For notable additions, offer to add a line at the top of the `changelog` list in `src/pages/Home.js`.
+6. Summarise the changed files. Do not run `npm run build` or commit unless asked.

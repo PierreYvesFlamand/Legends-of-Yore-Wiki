@@ -21,11 +21,13 @@ https://pierreyvesflamand.github.io/Legends-of-Yore-Wiki/build
 
 ## Layout
 
-- `src/index.js` — entry; sets `global.githubUrl` (base URL used to build in-wiki anchor links) and wraps the app in `DataContextProvider` + `HashRouter`.
+- `src/index.js` — entry; sets `global.githubUrl` (base URL for in-wiki anchor links, derived from the current page so it also works on the dev server), the `--bg-image` CSS variable, and wraps the app in `DataContextProvider` + `HashRouter`.
 - `src/App.js` — route table (`/player`, `/items`, `/monsters`, `/dungeons`, `/quests`, `/activities`, `/shops`, `/world_map`).
 - `src/context/dataContext.js` — fetches every JSON file in `public/data/gameData/` at startup and exposes them via `DataContext`. Children render only once all data is loaded. Levels are regrouped by dungeon using `src/utils/levelFilter.js`.
-- `src/pages/` — one component per route.
-- `src/components/` — shared UI (`H2`, `H3`, `PageHeader`, `Navigation`, `Footer`, `LevelCalc`, `Sprite`) and `Table/` with one row component per entity type (`GearRow`, `NonGearRow`, `MonsterRow`, `DungeonRow`, `QuestRow`).
+- `src/pages/` — one component per route. `Home.js` holds the section cards and the user-facing **changelog** (newest first).
+- `src/components/` — shared UI (`H2`, `H3` (collapsible), `PageHeader`, `Navigation`, `Search`, `ThemeToggle`, `MaxScroll` ("+N more" lists in cells), `Footer`, `LevelCalc`, `Sprite`) and `Table/` with one row component per entity type (`GearRow`, `NonGearRow`, `MonsterRow`, `DungeonRow`, `QuestRow`).
+- `src/utils/` — `levelFilter.js`, `npcLocation.js`, `useHashScroll.js` (scroll to + highlight the row named by the route hash; used by every data page), `searchIndex.js` (global search index built from `DataContext`).
+- `src/styles.css` — global styles and the light/dark **theme tokens** (CSS variables). Dark mode follows the system unless the reader uses the navbar toggle (saved in `localStorage.theme`, applied early by a script in `public/index.html`).
 - `public/data/gameData/*.json` — the game data (the wiki's real content):
   - `equipments.json` — object keyed by slot: `head, body, gloves, feet, melee, magic, ranged, off-hand, cloak, ring`
   - `items.json` — keyed by `consumable, miscellaneous, quest item`
@@ -34,13 +36,14 @@ https://pierreyvesflamand.github.io/Legends-of-Yore-Wiki/build
   - `levels.json` — `{ levels: { level: [...] } }`, a flat array of floors; indices are mapped to dungeons in `levelFilter.js`
   - `quests.json` — array of `{ town, npc, quests: [...] }`
 - `public/data/spriteSheet/` — sprite sheets; entries reference them by `tile` index (see `Sprite.js`).
-- `public/map/` — standalone Leaflet map (plain JS + jQuery, not React), embedded by `src/pages/Map.js` via `<object>`. Per-island markers live in `public/map/data/popup/<Island>.js`; tiles in `public/map/data/tiles/<Island>/z/x/y.png`.
+- `public/map/` — standalone Leaflet map (plain JS + jQuery, not React), embedded by `src/pages/Map.js` via `<iframe>` (the route hash, e.g. `#Aria_Island` or `#i=..&x=..&y=..`, is passed to the map). Per-island markers live in `public/map/data/popup/<Island>.js`; tiles in `public/map/data/tiles/<Island>/z/x/y.png`.
 
 ## Conventions
 
 - Game data values are **strings**, even numbers (`"level": "4"`, `"id": "11"`). Keep that format; code casts with `~~` / `Number()` where needed.
 - Some fields may be a single object or an array (e.g. `itemChance`, `item`, `monsterChance`). Preserve whatever shape the surrounding entries use.
 - Derived cross-reference fields (`dropedBy`, `foundIn`) are precomputed in the JSON. When adding/changing a monster drop or chest, update the matching item/equipment entry too. (Note the existing spelling `dropedBy` — do not "fix" it, the UI reads that key.)
-- Anchor links between pages use `` `${global.githubUrl}/<page>#<Name>` ``; row `id`s must match entity names.
+- Anchor links between pages use `<Link to='/<page>#<Name>'>` or `` `${global.githubUrl}/<page>#<Name>` `` — never a bare `href='#Name'` (with `HashRouter` it is a route and redirects to Home). Row `id`s must match entity names, and the search index (`src/utils/searchIndex.js`) must build the same ids.
+- Use the theme tokens from `src/styles.css` instead of hard-coded colours; every new token needs a dark-mode value too.
 - Code style: 4-space indentation, single quotes in JSX attributes, function components with hooks.
 - Never edit `build/` by hand — regenerate it with `npm run build`.

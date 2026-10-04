@@ -36,55 +36,52 @@
 .table th {
     font-weight: bold;
     font-size: 105%;
-    background-color: var(--clr-l-blue);
+    text-transform: uppercase;
+    background-color: var(--clr-table-head);
     padding: 0.4em 0.5em;
-    border: 2px solid rgb(63, 127, 148);
+    border: 2px solid var(--clr-border);
     background-clip: padding-box;
 }
 
 .table td {
-    background-color: rgba(var(--clr-l-blue-o), 0.45);
-    background-color: var(--clr-ll-blue-table);
+    background-color: var(--clr-table-cell);
     padding: 0.4em 0.65em;
-    border: 2px solid rgb(63, 127, 148);
+    border: 2px solid var(--clr-border);
     background-clip: padding-box;
+    transition: background-color 120ms ease-in;
+}
+
+.table tbody tr:nth-child(even) td {
+    background-color: var(--clr-table-cell-alt);
+}
+
+.table tbody tr:hover td {
+    background-color: var(--clr-table-cell-hover);
+}
+
+/* Row reached through a link (see src/utils/useHashScroll.js) */
+.table tbody tr.is-target td {
+    background-color: var(--clr-target);
+    animation: row-target-flash 1.2s ease-out;
+}
+
+@keyframes row-target-flash {
+    0%,
+    30% {
+        box-shadow: inset 0 0 0 2px var(--clr-yellow);
+    }
+    100% {
+        box-shadow: inset 0 0 0 0 transparent;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .table tbody tr.is-target td {
+        animation: none;
+    }
 }
 
 .table p {
     margin: 0;
     padding: 0;
-}
-
-.table .maxScroll {
-    max-height: 80px;
-    overflow: overlay;
-}
-
-.table .maxScroll ul {
-    list-style: none;
-    padding: 0.2em 0;
-    padding-right: 0.4em;
-    margin: 0;
-    width: 100%;
-}
-
-.table .maxScroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.table .maxScroll::-webkit-scrollbar-thumb {
-    background-color: var(--clr-l-blue);
-}
-
-.table .maxScroll li {
-    cursor: default;
-    margin: 0;
-    padding: 0;
-}
-
-@-moz-document url-prefix() {
-    .table .maxScroll {
-        max-height: unset;
-        overflow: hidden;
-    }
 }

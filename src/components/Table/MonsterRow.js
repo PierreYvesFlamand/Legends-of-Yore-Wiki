@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Sprite from '../Sprite';
+import MaxScroll from '../MaxScroll';
 
 export default function MonsterRow(monsters, isRare = false) {
     return monsters.reduce((acc, monster) => {
@@ -20,9 +21,9 @@ export default function MonsterRow(monsters, isRare = false) {
                     attack,
                     defence,
                     `${charge ? charge : 0} / ${zen ? zen : 0} / ${rage ? rage : 0}`,
-                    <div className='maxScroll'>
+                    <MaxScroll>
                         <ul>{GetDrop(monster)}</ul>
-                    </div>,
+                    </MaxScroll>,
                     isRare ? (
                         <>
                             {monster.foundIn}{' '}
@@ -31,7 +32,7 @@ export default function MonsterRow(monsters, isRare = false) {
                             </Link>
                         </>
                     ) : monster.foundIn.length ? (
-                        <div className='maxScroll'>
+                        <MaxScroll>
                             <ul>
                                 {monster.foundIn.map((foundIn, id) => {
                                     if (
@@ -52,7 +53,7 @@ export default function MonsterRow(monsters, isRare = false) {
                                     }
                                 })}
                             </ul>
-                        </div>
+                        </MaxScroll>
                     ) : (
                         '–'
                     ),

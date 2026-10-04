@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
+import Search from '../Search';
+import ThemeToggle from '../ThemeToggle';
+
 import './styles.css';
 
 const links = [
@@ -17,11 +20,13 @@ const links = [
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const location = useLocation();
 
-    // Close the mobile menu whenever the page changes
+    // Close the mobile menu and the search whenever the page changes
     useEffect(() => {
         setIsOpen(false);
+        setIsSearchOpen(false);
     }, [location.pathname, location.hash]);
 
     useEffect(() => {
@@ -39,8 +44,23 @@ export default function Navigation() {
         };
     }, [isOpen]);
 
+    // "/" opens the search from anywhere (unless the reader is typing in a field)
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            const tag = e.target.tagName;
+            if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey || tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) {
+                return;
+            }
+            e.preventDefault();
+            setIsOpen(false);
+            setIsSearchOpen(true);
+        };
+        document.addEventListener('keydown', onKeyDown);
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, []);
+
     return (
-        <header className={`navigation${isOpen ? ' open' : ''}`}>
+        <header className={`navigation${isOpen ? ' open' : ''}${isSearchOpen ? ' search-open' : ''}`}>
             <div className='nav-bar'>
                 <Link to='/' className='nav-brand'>
                     <img src={process.env.PUBLIC_URL + '/data/warrior.png'} alt='' width='28' height='28' />
@@ -48,18 +68,6 @@ export default function Navigation() {
                         Legends of Yore <span className='nav-brand-wiki'>Wiki</span>
                     </span>
                 </Link>
-
-                <button
-                    className='nav-toggle'
-                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                    aria-expanded={isOpen}
-                    aria-controls='nav-links'
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <span className='nav-toggle-bar' />
-                    <span className='nav-toggle-bar' />
-                    <span className='nav-toggle-bar' />
-                </button>
 
                 <nav id='nav-links' className='nav-links' aria-label='Main'>
                     <ul>
@@ -72,7 +80,58 @@ export default function Navigation() {
                         ))}
                     </ul>
                 </nav>
+
+                <div className='nav-actions'>
+                    <button
+                        type='button'
+                        className='nav-icon-btn'
+                        aria-label={isSearchOpen ? 'Close search' : 'Search (shortcut: /)'}
+                        title='Search (/)'
+                        aria-expanded={isSearchOpen}
+                        aria-controls='nav-search'
+                        // Keep focus in the search field so its blur does not close it before this click toggles it
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => {
+                            setIsOpen(false);
+                            setIsSearchOpen(!isSearchOpen);
+                        }}
+                    >
+                        <svg viewBox='0 0 24 24' width='22' height='22' aria-hidden='true'>
+                            <circle cx='10.5' cy='10.5' r='6.5' fill='none' stroke='currentColor' strokeWidth='2.6' />
+                            <path d='M15.5 15.5L21 21' stroke='currentColor' strokeWidth='2.6' strokeLinecap='round' />
+                        </svg>
+                    </button>
+
+                    <ThemeToggle className='nav-icon-btn' />
+
+                    <button
+                        className='nav-toggle'
+                        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                        aria-expanded={isOpen}
+                        aria-controls='nav-links'
+                        onClick={() => {
+                            setIsSearchOpen(false);
+                            setIsOpen(!isOpen);
+                        }}
+                    >
+                        <span className='nav-toggle-bar' />
+                        <span className='nav-toggle-bar' />
+                        <span className='nav-toggle-bar' />
+                    </button>
+                </div>
             </div>
+
+            {isSearchOpen ? (
+                <div id='nav-search' className='nav-search'>
+                    <Search
+                        id='nav-search-input'
+                        autoFocus
+                        onNavigate={() => setIsSearchOpen(false)}
+                        onDismiss={() => setIsSearchOpen(false)}
+                    />
+                </div>
+            ) : null}
+
             <div className='nav-backdrop' onClick={() => setIsOpen(false)} />
         </header>
     );
